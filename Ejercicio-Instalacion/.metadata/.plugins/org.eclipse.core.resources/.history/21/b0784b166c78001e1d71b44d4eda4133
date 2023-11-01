@@ -1,0 +1,71 @@
+package nuevows;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.jws.WebParam;
+
+@WebService
+public class ObtenerClientes {
+	
+	/*public static void main(String[] args) { fvarwgbfb
+	// TODO Auto-generated method stub
+	obtenerClientes(1,"alfredo");
+	//int idcliente=2;
+} */
+	
+	@WebMethod
+	public String obtenerClientes(@WebParam(name="nombre") char nombre, @WebParam(name="precio") float precio) {
+	    String resultado = "";
+	    System.err.println("HOLA MUNDO");
+	    
+	    //Connection connection = null;
+	    
+	    try {
+		    System.err.println("HOLA MUNDO-----a");
+
+	        // Establecer la conexi�n con la base de datos.
+	        //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cesun?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "hitss2022");
+		    //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cesun", "root", "hitss2022");
+	        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:1521/cesun?useSSL=false&serverTimezone=UTC", "ruben", "123456");
+
+		   //System.err.println("conexionBD " + connection);
+	          
+	       //   Class.forName(JDBC_DRIVER);
+	         // connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+	          
+	        Statement statement = connection.createStatement();
+		    System.err.println("HOLA MUNDO2");
+
+	        // Ejecutar la consulta SQL
+	        ResultSet resultSet = statement.executeQuery("SELECT * FROM Videojuegos where nombre="+nombre+" AND precio like'%"+precio+"%'");
+	        //ResultSet resultSet = statement.executeQuery("SELECT * FROM clientes where codigo=2");
+	        
+		    System.err.println("HOLA MUNDO3");
+
+	        // Recorrer los resultados y construir una cadena con la informaci�n
+	        while (resultSet.next()) {
+	    	    System.err.println("ENTRA AL WHILE");
+
+	            //resultado += "ID: " + resultSet.getInt("codigo") + ", Nombre: " + resultSet.getString("nombre") + "\n";
+	            resultado = "<Respuesta><IdCliente>" + resultSet.getInt("nombre") +"</IdCliente>" + "<Nombre>"+ resultSet.getString("nombre")+"</Nombre></Respuesta>";
+	        }
+
+	        // Cerrar la conexi�n y liberar recursos
+	        resultSet.close();
+	        statement.close();
+	        connection.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    System.err.println("resultadoo: " + resultado);
+
+	    return resultado;
+	}
+}
+

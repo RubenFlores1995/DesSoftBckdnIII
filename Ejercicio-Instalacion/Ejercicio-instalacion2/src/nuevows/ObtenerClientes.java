@@ -14,13 +14,13 @@ import javax.jws.WebParam;
 public class ObtenerClientes {
 	
 	/*public static void main(String[] args) { fvarwgbfb
-	// TODO Auto-generated method stub
+	// TODO Auto-generated method stub bgn
 	obtenerClientes(1,"alfredo");
 	//int idcliente=2;
 } */
 	
 	@WebMethod
-	public String obtenerClientes(@WebParam(name="filtro") int filtro, @WebParam(name="nombre") String nombre) {
+	public String obtenerClientes(@WebParam(name="nombre") char nombre, @WebParam(name="precio") float precio) {
 	    String resultado = "";
 	    System.err.println("HOLA MUNDO");
 	    
@@ -29,10 +29,10 @@ public class ObtenerClientes {
 	    try {
 		    System.err.println("HOLA MUNDO-----a");
 
-	        // Establecer la conexi�n con la base de datos
+	        // Establecer la conexi�n con la base de datos.
 	        //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cesun?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "hitss2022");
 		    //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cesun", "root", "hitss2022");
-	         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:1521/cesun?useSSL=false&serverTimezone=UTC", "ruben", "123456");
+	        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:1521/cesun?useSSL=false&serverTimezone=UTC", "ruben", "123456");
 
 		   //System.err.println("conexionBD " + connection);
 	          
@@ -43,7 +43,7 @@ public class ObtenerClientes {
 		    System.err.println("HOLA MUNDO2");
 
 	        // Ejecutar la consulta SQL
-	        ResultSet resultSet = statement.executeQuery("SELECT * FROM clientes where codigo="+filtro+" AND nombre like'%"+nombre+"%'");
+	        ResultSet resultSet = statement.executeQuery("SELECT * FROM Videojuegos where nombre="+nombre+" AND precio like'%"+precio+"%'");
 	        //ResultSet resultSet = statement.executeQuery("SELECT * FROM clientes where codigo=2");
 	        
 		    System.err.println("HOLA MUNDO3");
@@ -53,7 +53,7 @@ public class ObtenerClientes {
 	    	    System.err.println("ENTRA AL WHILE");
 
 	            //resultado += "ID: " + resultSet.getInt("codigo") + ", Nombre: " + resultSet.getString("nombre") + "\n";
-	            resultado = "<Respuesta><IdCliente>" + resultSet.getInt("codigo") +"</IdCliente>" + "<Nombre>"+ resultSet.getString("nombre")+"</Nombre></Respuesta>";
+	            resultado = "Nos conectamos";
 	        }
 
 	        // Cerrar la conexi�n y liberar recursos
